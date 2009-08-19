@@ -42,7 +42,7 @@ void FileDataStore::GetObject(const std::string& name,void *data,int size) const
 	int fd = open((m_path + "/" + name).c_str(),O_RDONLY);
 	if(fd < 0) {
 		switch(errno) {
-			case ENOENT: memset(data,0,size); break;
+			case ENOENT: throw FileIOException(name + ": " + strerror(errno)); break;
 			default: throw FileIOException(name + ": " + strerror(errno)); break;
 		}
 	} else {

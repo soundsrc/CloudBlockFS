@@ -52,11 +52,6 @@ namespace cloudblockfs
 			m_meta.GetHead(&head);
 			return head.disk_size; 
 		}
-		int64_t GetMaxDiskSize() const {
-			BlockMeta::Head head;
-			m_meta.GetHead(&head);
-			return head.max_disk; 
-		}
 		
 		/**
 		 * Create a handle to a block device using the provided storage backend.

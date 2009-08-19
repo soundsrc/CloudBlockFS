@@ -29,7 +29,11 @@ BlockStorageDevice::BlockStorageDevice(DataStore *store) : m_store(store), m_met
 
 bool BlockStorageDevice::IsValid() const
 {
-	return GetBlockSize() != 0;
+	try {
+		return GetBlockSize() != 0;
+	} catch(const std::runtime_error& ) {
+	}
+	return false;
 }
 
 void BlockStorageDevice::Check()
@@ -59,8 +63,15 @@ void BlockStorageDevice::Format(int block_size,int tree_level)
 	head.block_size = block_size;
 	head.tree_level = tree_level;
 	head.disk_size = 0;
-	head.max_disk = pow((block_size >> 3),tree_level) * block_size;
-	head.head_id = m_meta.AllocateBlockID();
+	srand(time(NULL));
+	head.head_id = rand() + 1;
+	head.last_id = head.head_id;
+	
+	std::vector<char> table(head.block_size,0);
+	char object[32];
+	sprintf(object,"%.16llX",head.head_id);
+	m_store->PutObject(object,&table[0],head.block_size);
+
 	m_meta.PutHead(head);
 }
 

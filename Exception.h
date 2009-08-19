@@ -30,6 +30,7 @@ namespace cloudblockfs
 	}
 	
 	DEFINE_EXCEPTION(FileIOException);
+	DEFINE_EXCEPTION(OutOfDiskSpaceException);
 	DEFINE_EXCEPTION(FileNotFoundException);
 	DEFINE_EXCEPTION(WriteErrorException);
 	DEFINE_EXCEPTION(ReadErrorException);

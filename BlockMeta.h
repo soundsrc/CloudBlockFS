@@ -46,7 +46,6 @@ namespace cloudblockfs
 			int32_t block_size;
 			int32_t tree_level;
 			int64_t disk_size;
-			int64_t max_disk;
 			BlockID last_id;
 		};
 		
@@ -61,7 +60,7 @@ namespace cloudblockfs
 		void GetHead(Head *out_head) const { m_store->GetObject("0000000000000000",out_head,sizeof(BlockMeta::Head)); }
 		void PutHead(const Head& head) { 
 			Head head_copy = head;
-			head_copy.last_id = m_last_id;
+			if(m_last_id) head_copy.last_id = m_last_id;
 			m_store->PutObject("0000000000000000",&head_copy,sizeof(BlockMeta::Head)); 
 		}
 		

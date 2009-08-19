@@ -22,6 +22,7 @@
 #include <sys/stat.h>
 #include <stdexcept>
 #include <memory>
+#include "Exception.h"
 #include "DataStore.h"
 #include "FileDataStore.h"
 #include "BlockStorageDevice.h"
@@ -111,14 +112,14 @@ static int cloudblockfs_read(const char *path, char *buf, size_t size, off_t off
 static int cloudblockfs_write(const char *path, const char *buf, size_t size,
                off_t offset, struct fuse_file_info *fi) {
 	if(strcmp(path, "/" CLOUDBLOCK_DEVICE_NAME) == 0) {
-		try {
-			if(size + offset > blockstore->GetMaxDiskSize()) return -ENOSPC;
-		
+		try {		
 			if(size + offset > blockstore->GetDiskSize()) {
 				blockstore->Truncate(size + offset);
 			}
 			
 			blockstore->Write(buf,size,offset);
+		} catch(const OutOfDiskSpaceException&) {
+			return -ENOSPC;
 		} catch(const std::runtime_error& ) {
 			return -EIO;
 		}
@@ -182,9 +183,9 @@ int main(int argc, char* argv[], char* envp[], char** exec_path)
 	umask(0);
 	
 	// initialize blockstore
-	blockstore.reset(new BlockStorageDevice(new FileDataStore("/Users/sound/Desktop/cloudblockfs/build/Debug/store")));
+	blockstore.reset(new BlockStorageDevice(new FileDataStore("/Users/sound/Desktop/store")));
 	if(!blockstore->IsValid()) 
-		blockstore->Format(1024,3);
+		blockstore->Format(65536,1);
 	
 	struct fuse_operations ops;
 	memset(&ops,0,sizeof(ops));
