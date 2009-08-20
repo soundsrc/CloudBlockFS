@@ -44,7 +44,7 @@ void BlockStorageDevice::Sync()
 {
 }
 
-void BlockStorageDevice::Format(int block_size,int tree_level)
+void BlockStorageDevice::Format(int block_size,int tree_depth)
 {
 	BlockMeta::Head head;
 	memset(&head,0,sizeof(head));
@@ -61,7 +61,7 @@ void BlockStorageDevice::Format(int block_size,int tree_level)
 	}
 	
 	head.block_size = block_size;
-	head.tree_level = tree_level;
+	head.tree_depth = tree_depth;
 	head.disk_size = 0;
 	srand(time(NULL));
 	head.head_id = rand() + 1;
@@ -98,7 +98,7 @@ void BlockStorageDevice::GC()
 {
 }
 
-void BlockStorageDevice::WriteBlock(uint32_t blockno,const void *data)
+void BlockStorageDevice::WriteBlock(uint64_t blockno,const void *data)
 {
 	const BlockID block_id = m_meta.AllocateBlockID();
 	char object[32];
@@ -107,7 +107,7 @@ void BlockStorageDevice::WriteBlock(uint32_t blockno,const void *data)
 	m_meta.SetBlockIDForBlockNo(blockno,block_id);
 }
 
-void BlockStorageDevice::ReadBlock(uint32_t blockno,void *data) const
+void BlockStorageDevice::ReadBlock(uint64_t blockno,void *data) const
 {
 	const BlockID block_id = m_meta.GetBlockIDForBlockNo(blockno);
 	char object[32];
@@ -120,10 +120,10 @@ void BlockStorageDevice::ReadBlock(uint32_t blockno,void *data) const
 	}
 }
 
-void BlockStorageDevice::Write(const void *data,int size,long offset)
+void BlockStorageDevice::Write(const void *data,int size,uint64_t offset)
 {
 	const int block_size = GetBlockSize();
-	uint32_t i, start_block, end_block;
+	uint64_t i, start_block, end_block;
 	int bytes_to_write, remaining;
 	const unsigned long offset_mask = block_size - 1;
 	
@@ -164,10 +164,10 @@ void BlockStorageDevice::Write(const void *data,int size,long offset)
 	}
 }
 
-void BlockStorageDevice::Read(void *data,int size,long offset) const
+void BlockStorageDevice::Read(void *data,int size,uint64_t offset) const
 {
 	const int block_size = GetBlockSize();
-	uint32_t i, start_block, end_block;
+	uint64_t i, start_block, end_block;
 	int bytes_to_read, remaining;
 	const unsigned long offset_mask = block_size - 1;
 	

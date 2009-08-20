@@ -45,14 +45,14 @@ BlockID BlockMeta::AllocateBlockID()
 	return m_last_id;
 }
 
-void BlockMeta::SetBlockIDForBlockNo(uint32_t no,BlockID block_id)
+void BlockMeta::SetBlockIDForBlockNo(uint64_t no,BlockID block_id)
 {
 	// get head
 	BlockMeta::Head head;
 	GetHead(&head);
 
 	std::vector<BlockID> delete_list;
-	delete_list.reserve(head.tree_level + 2);
+	delete_list.reserve(head.tree_depth + 2);
 	
 	const int bk_count = head.block_size >> 3; // block count per object
 	m_table.resize(bk_count);
@@ -68,7 +68,7 @@ void BlockMeta::SetBlockIDForBlockNo(uint32_t no,BlockID block_id)
 	head.head_id = cur_id;
 	
 	// chain down the tree
-	for(int i = 1; i < head.tree_level; i++) {
+	for(int i = 1; i < head.tree_depth; i++) {
 		const BlockID new_id = AllocateBlockID(); // new id for next table
 		
 		const BlockID next = m_table[no % bk_count]; // save a copy of the next table
@@ -91,7 +91,7 @@ void BlockMeta::SetBlockIDForBlockNo(uint32_t no,BlockID block_id)
 		no /= bk_count;
 	}
 	
-	if(no > bk_count) throw OutOfDiskSpaceException("No space left on device.");
+	if(no >= bk_count) throw OutOfDiskSpaceException("No space left on device.");
 	delete_list.push_back(m_table[no]);
 	m_table[no] = block_id;
 	sprintf(object,"%.16llX",cur_id);
@@ -109,7 +109,7 @@ void BlockMeta::SetBlockIDForBlockNo(uint32_t no,BlockID block_id)
 	}
 }
 
-BlockID BlockMeta::GetBlockIDForBlockNo(uint32_t no) const
+BlockID BlockMeta::GetBlockIDForBlockNo(uint64_t no) const
 {
 	// get head
 	BlockMeta::Head head;
@@ -124,7 +124,7 @@ BlockID BlockMeta::GetBlockIDForBlockNo(uint32_t no) const
 	m_store->GetObject(object,&m_table[0],head.block_size);
 	
 	// chain down the tree
-	for(int i = 1; i < head.tree_level; i++) {
+	for(int i = 1; i < head.tree_depth; i++) {
 		// there maybe sub-trees
 		BlockID obj = m_table[no % bk_count];
 		if(obj) {

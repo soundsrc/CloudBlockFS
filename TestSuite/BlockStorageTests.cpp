@@ -16,8 +16,13 @@
  along with WifiPad.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <UnitTest++.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <vector>
+#include <math.h>
 #include <tr1/memory>
+#include "Exception.h"
 #include "BlockStorageDevice.h"
 #include "TmpFileDataStore.h"
 
@@ -66,6 +71,8 @@ SUITE(BlockStorageTests)
 	TEST_FIXTURE(BlockStorageFixture,BlockReadWriteTest)
 	{
 		std::vector<char> expect, data;
+		
+		srandom(time(NULL));
 		FILE *fp = fopen("/dev/urandom","r");
 		if(fp) {
 			for(BlockStorageDeviceList::iterator it = m_block_devices.begin(); it != m_block_devices.end(); ++it)
@@ -73,9 +80,12 @@ SUITE(BlockStorageTests)
 				BlockStorageDevicePtr block = *it;
 				
 				const int block_size = block->GetBlockSize();
+				const int tree_depth = block->GetTreeDepth();
+				const uint64_t max_block = powl((block_size >> 3),tree_depth) - 1;
 				expect.resize(block_size);
 				data.resize(block_size);
 				
+				// test1: write random data to block 0, multiple times
 				for(int i = 0; i < 5; i++) {
 					// read random
 					fread(&expect[0],1,block_size,fp);
@@ -85,6 +95,37 @@ SUITE(BlockStorageTests)
 					block->ReadBlock(0,&data[0]);
 					
 					CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+				}
+				
+				// test2: write random data to the last block multiple times
+				for(int i = 0; i < 5; i++) {
+					// read random
+					fread(&expect[0],1,block_size,fp);
+					
+					// store object to final block
+					block->WriteBlock(max_block,&expect[0]);
+					block->ReadBlock(max_block,&data[0]);
+					
+					CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+				}
+				
+				// try to write data to block beyond the disk limit and expect failure
+				CHECK_THROW(block->WriteBlock(max_block + 1,&expect[0]),OutOfDiskSpaceException);
+				
+				// select 10 random blocks in between [1,final block) and test them with random data
+				for(int i = 0; i < 10; i++) {
+					uint64_t random_block = ((((uint64_t)random() << 32L) | random()) % max_block) + 1; // random block from [1,max_block)
+					
+					for(int j = 0; j < 5; j++) {
+						// read random
+						fread(&expect[0],1,block_size,fp);
+						
+						// store object to final block
+						block->WriteBlock(random_block,&expect[0]);
+						block->ReadBlock(random_block,&data[0]);
+						
+						CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+					}
 				}
 			}
 			fclose(fp);

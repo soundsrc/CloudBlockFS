@@ -47,6 +47,14 @@ namespace cloudblockfs
 			m_meta.GetHead(&head);
 			return head.block_size; 
 		}
+		
+		int GetTreeDepth() const
+		{
+			BlockMeta::Head head;
+			m_meta.GetHead(&head);
+			return head.tree_depth; 
+		}
+		
 		int64_t GetDiskSize() const { 
 			BlockMeta::Head head;
 			m_meta.GetHead(&head);
@@ -81,7 +89,7 @@ namespace cloudblockfs
 		 * @param block_size Size of each block. May be one of 1024, 2048, 4096, 8192, 16384, 32768.
 		 * @param tree_level The depth of the meta trees.
 		 */
-		void Format(int block_size,int tree_level = 1);
+		void Format(int block_size,int tree_depth = 1);
 		
 		/**
 		 * Deletes all files in the block storage.
@@ -106,14 +114,14 @@ namespace cloudblockfs
 		 * @param blockno Block number.
 		 * @param data A block of data. Data must be of the same size as a block size.
 		 */
-		void WriteBlock(uint32_t blockno,const void *data);
+		void WriteBlock(uint64_t blockno,const void *data);
 		
 		/**
 		 * Low level block reader. Reads a block from the data store.
 		 * @param blockno Block number.
 		 * @param data A block of data. Data must be of the same size as a block size.
 		 */
-		void ReadBlock(uint32_t blockno,void *data) const;
+		void ReadBlock(uint64_t blockno,void *data) const;
 
 		/**
 		 * Write data with size to offset.
@@ -121,7 +129,7 @@ namespace cloudblockfs
 		 * @param size Size in bytes to write
 		 * @param offset Offset to write
 		 */
-		void Write(const void *data,int size,long offset);
+		void Write(const void *data,int size,uint64_t offset);
 		
 		/**
 		 * Reads data with size to offset.
@@ -129,7 +137,7 @@ namespace cloudblockfs
 		 * @param size Size in bytes to read
 		 * @param offset Offset to read
 		 */
-		void Read(void *data,int size,long offset) const;
+		void Read(void *data,int size,uint64_t offset) const;
 	};
 }
 

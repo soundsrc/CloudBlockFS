@@ -44,7 +44,7 @@ namespace cloudblockfs
 		{
 			BlockID head_id;
 			int32_t block_size;
-			int32_t tree_level;
+			int32_t tree_depth;
 			int64_t disk_size;
 			BlockID last_id;
 		};
@@ -72,12 +72,12 @@ namespace cloudblockfs
 		/**
 		 * Sets the mapping for block no to be block id.
 		 */
-		void SetBlockIDForBlockNo(uint32_t no,BlockID block_id);
+		void SetBlockIDForBlockNo(uint64_t no,BlockID block_id);
 		
 		/**
 		 * Retrives the block id given the block no.
 		 */
-		BlockID GetBlockIDForBlockNo(uint32_t no) const;
+		BlockID GetBlockIDForBlockNo(uint64_t no) const;
 	};
 }
 
