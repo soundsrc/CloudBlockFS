@@ -27,6 +27,7 @@
 #include "DataStore.h"
 #include "FileDataStore.h"
 #include "TmpDir.h"
+#include "TmpFileDataStore.h"
 
 using namespace cloudblockfs;
 
@@ -41,22 +42,6 @@ public:
 		try { m_store.DeleteObject(m_object); }
 		catch(const std::runtime_error& ) { }
 	}
-};
-
-class TmpFileDataStore : public DataStore
-{
-private:
-	TmpDir m_tmp_dir;
-	FileDataStore m_store;
-public:
-	TmpFileDataStore() : m_store(m_tmp_dir.GetPath())
-	{
-	}
-	virtual ~TmpFileDataStore() {}
-	virtual void PutObject(const std::string& name,const void *data,int size) { m_store.PutObject(name,data,size); }
-	virtual void GetObject(const std::string& name,void *data,int size) const { m_store.GetObject(name,data,size); }
-	virtual void DeleteObject(const std::string& name) { m_store.DeleteObject(name); }
-	virtual void ListObjects(void (*list_function)(const std::string& name,void *userdata),void *userdata) const { m_store.ListObjects(list_function,userdata); }
 };
 
 typedef std::tr1::shared_ptr<DataStore> DataStorePtr;

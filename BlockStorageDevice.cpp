@@ -83,8 +83,15 @@ void BlockStorageDevice::Truncate(int size)
 	m_meta.PutHead(head);
 }
 
+static void DeleteObjects(const std::string& name,void *userdata)
+{
+	DataStore *store = (DataStore *)userdata;
+	store->DeleteObject(name);
+}
+
 void BlockStorageDevice::Delete()
 {
+	m_store->ListObjects(DeleteObjects,m_store.get());
 }
 
 void BlockStorageDevice::GC()

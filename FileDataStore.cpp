@@ -67,7 +67,8 @@ void FileDataStore::ListObjects(void (*list_function)(const std::string& name,vo
 	struct dirent *dp;
 	dirp = opendir(m_path.c_str());
 	while((dp = readdir(dirp)) != NULL) {
-		list_function(dp->d_name,userdata);
+		if(strcmp(dp->d_name,".") && strcmp(dp->d_name,".."))
+			list_function(dp->d_name,userdata);
 	}
 	closedir(dirp);
 }

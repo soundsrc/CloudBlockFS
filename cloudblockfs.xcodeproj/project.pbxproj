@@ -73,6 +73,7 @@
 		35CB17F8103DCED400CE4C65 /* BlockStorageTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlockStorageTests.cpp; sourceTree = "<group>"; };
 		35CB17F9103DCED400CE4C65 /* DataStoreTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataStoreTests.cpp; sourceTree = "<group>"; };
 		35CB1800103DCF0E00CE4C65 /* cloudblockfs_testsuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cloudblockfs_testsuite-Info.plist"; sourceTree = "<group>"; };
+		35CB1815103DD00000CE4C65 /* TmpFileDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmpFileDataStore.h; sourceTree = "<group>"; };
 		35DEC4121039C15E00DA6FEB /* FileDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStore.h; sourceTree = "<group>"; };
 		35DEC4131039C15E00DA6FEB /* FileDataStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileDataStore.cpp; sourceTree = "<group>"; };
 		35DEC4571039CD1800DA6FEB /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				35CB1796103DC27C00CE4C65 /* TmpDir.h */,
+				35CB1815103DD00000CE4C65 /* TmpFileDataStore.h */,
 			);
 			name = Header;
 			sourceTree = "<group>";
