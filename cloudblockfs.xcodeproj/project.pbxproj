@@ -8,13 +8,48 @@
 
 /* Begin PBXBuildFile section */
 		351B6C331039440F007BEB78 /* BlockStorageDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 351B6C321039440F007BEB78 /* BlockStorageDevice.cpp */; };
+		35CB1763103DBEFC00CE4C65 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35CB1762103DBEFC00CE4C65 /* Main.cpp */; };
+		35CB17B4103DC8F200CE4C65 /* BlockStorageDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 351B6C321039440F007BEB78 /* BlockStorageDevice.cpp */; };
+		35CB17B5103DC8F200CE4C65 /* FileDataStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DEC4131039C15E00DA6FEB /* FileDataStore.cpp */; };
+		35CB17B6103DC8F200CE4C65 /* BlockMeta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DEC47D1039D36C00DA6FEB /* BlockMeta.cpp */; };
+		35CB17FA103DCED400CE4C65 /* BlockStorageTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35CB17F8103DCED400CE4C65 /* BlockStorageTests.cpp */; };
+		35CB17FB103DCED400CE4C65 /* DataStoreTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35CB17F9103DCED400CE4C65 /* DataStoreTests.cpp */; };
+		35CB17FC103DCED900CE4C65 /* UnitTest++.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CB17F7103DCEAA00CE4C65 /* UnitTest++.framework */; };
+		35CB17FD103DCEDB00CE4C65 /* UnitTest++.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 35CB17F7103DCEAA00CE4C65 /* UnitTest++.framework */; };
 		35DEC4141039C15E00DA6FEB /* FileDataStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DEC4131039C15E00DA6FEB /* FileDataStore.cpp */; };
 		35DEC47E1039D36C00DA6FEB /* BlockMeta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DEC47D1039D36C00DA6FEB /* BlockMeta.cpp */; };
 		8DD76FB00486AB0100D96B5E /* cloudblockfs.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* cloudblockfs.1 */; };
 		FFD708650EE669A60026C014 /* CloudBlockFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFD708640EE669A60026C014 /* CloudBlockFS.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		35CB17F6103DCEAA00CE4C65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35CB1752103DBE7E00CE4C65 /* UnitTest++.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* UnitTest++.framework */;
+			remoteInfo = "UnitTest++";
+		};
+		35CB1808103DCFB300CE4C65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35CB1752103DBE7E00CE4C65 /* UnitTest++.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* UnitTest++ */;
+			remoteInfo = "UnitTest++";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		35CB1761103DBEB500CE4C65 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				35CB17FD103DCEDB00CE4C65 /* UnitTest++.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76FAF0486AB0100D96B5E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -31,6 +66,13 @@
 		351B6BD3103939C2007BEB78 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
 		351B6C311039440F007BEB78 /* BlockStorageDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockStorageDevice.h; sourceTree = "<group>"; };
 		351B6C321039440F007BEB78 /* BlockStorageDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlockStorageDevice.cpp; sourceTree = "<group>"; };
+		35CB174C103DBE5600CE4C65 /* cloudblockfs_testsuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cloudblockfs_testsuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35CB1752103DBE7E00CE4C65 /* UnitTest++.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "UnitTest++.xcodeproj"; path = "../UnitTest++/UnitTest++.xcodeproj"; sourceTree = "<group>"; };
+		35CB1762103DBEFC00CE4C65 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		35CB1796103DC27C00CE4C65 /* TmpDir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmpDir.h; sourceTree = "<group>"; };
+		35CB17F8103DCED400CE4C65 /* BlockStorageTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlockStorageTests.cpp; sourceTree = "<group>"; };
+		35CB17F9103DCED400CE4C65 /* DataStoreTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataStoreTests.cpp; sourceTree = "<group>"; };
+		35CB1800103DCF0E00CE4C65 /* cloudblockfs_testsuite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cloudblockfs_testsuite-Info.plist"; sourceTree = "<group>"; };
 		35DEC4121039C15E00DA6FEB /* FileDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStore.h; sourceTree = "<group>"; };
 		35DEC4131039C15E00DA6FEB /* FileDataStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileDataStore.cpp; sourceTree = "<group>"; };
 		35DEC4571039CD1800DA6FEB /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
@@ -42,6 +84,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		35CB174A103DBE5600CE4C65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35CB17FC103DCED900CE4C65 /* UnitTest++.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76FAD0486AB0100D96B5E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -55,6 +105,7 @@
 		08FB7794FE84155DC02AAC07 /* cloudblockfs */ = {
 			isa = PBXGroup;
 			children = (
+				35CB1747103DBE2B00CE4C65 /* TestSuite */,
 				351B6BD21039242C007BEB78 /* Header */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
@@ -78,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD76FB20486AB0100D96B5E /* cloudblockfs */,
+				35CB174C103DBE5600CE4C65 /* cloudblockfs_testsuite.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +146,43 @@
 			name = Header;
 			sourceTree = "<group>";
 		};
+		35CB1747103DBE2B00CE4C65 /* TestSuite */ = {
+			isa = PBXGroup;
+			children = (
+				35CB1800103DCF0E00CE4C65 /* cloudblockfs_testsuite-Info.plist */,
+				35CB1752103DBE7E00CE4C65 /* UnitTest++.xcodeproj */,
+				35CB1797103DC28300CE4C65 /* Header */,
+				35CB1760103DBEB500CE4C65 /* Source */,
+			);
+			path = TestSuite;
+			sourceTree = "<group>";
+		};
+		35CB1760103DBEB500CE4C65 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				35CB17F8103DCED400CE4C65 /* BlockStorageTests.cpp */,
+				35CB17F9103DCED400CE4C65 /* DataStoreTests.cpp */,
+				35CB1762103DBEFC00CE4C65 /* Main.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		35CB1797103DC28300CE4C65 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				35CB1796103DC27C00CE4C65 /* TmpDir.h */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		35CB17F3103DCEAA00CE4C65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35CB17F7103DCEAA00CE4C65 /* UnitTest++.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +194,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		35CB174B103DBE5600CE4C65 /* cloudblockfs_testsuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35CB1751103DBE5600CE4C65 /* Build configuration list for PBXNativeTarget "cloudblockfs_testsuite" */;
+			buildPhases = (
+				35CB1748103DBE5600CE4C65 /* Resources */,
+				35CB1749103DBE5600CE4C65 /* Sources */,
+				35CB174A103DBE5600CE4C65 /* Frameworks */,
+				35CB1761103DBEB500CE4C65 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				35CB1809103DCFB300CE4C65 /* PBXTargetDependency */,
+			);
+			name = cloudblockfs_testsuite;
+			productName = cloudblockfs_testsuite;
+			productReference = 35CB174C103DBE5600CE4C65 /* cloudblockfs_testsuite.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8DD76FA90486AB0100D96B5E /* cloudblockfs */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB928508733DD80010E9CD /* Build configuration list for PBXNativeTarget "cloudblockfs" */;
@@ -133,14 +241,54 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* cloudblockfs */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 35CB17F3103DCEAA00CE4C65 /* Products */;
+					ProjectRef = 35CB1752103DBE7E00CE4C65 /* UnitTest++.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DD76FA90486AB0100D96B5E /* cloudblockfs */,
+				35CB174B103DBE5600CE4C65 /* cloudblockfs_testsuite */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		35CB17F7103DCEAA00CE4C65 /* UnitTest++.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = "UnitTest++.framework";
+			remoteRef = 35CB17F6103DCEAA00CE4C65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35CB1748103DBE5600CE4C65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		35CB1749103DBE5600CE4C65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35CB17B4103DC8F200CE4C65 /* BlockStorageDevice.cpp in Sources */,
+				35CB17B5103DC8F200CE4C65 /* FileDataStore.cpp in Sources */,
+				35CB17B6103DC8F200CE4C65 /* BlockMeta.cpp in Sources */,
+				35CB1763103DBEFC00CE4C65 /* Main.cpp in Sources */,
+				35CB17FA103DCED400CE4C65 /* BlockStorageTests.cpp in Sources */,
+				35CB17FB103DCED400CE4C65 /* DataStoreTests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76FAB0486AB0100D96B5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +301,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		35CB1809103DCFB300CE4C65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "UnitTest++";
+			targetProxy = 35CB1808103DCFB300CE4C65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB928608733DD80010E9CD /* Debug */ = {
@@ -224,6 +380,46 @@
 			};
 			name = Release;
 		};
+		35CB174F103DBE5600CE4C65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"UnitTest++/src",
+					.,
+				);
+				INFOPLIST_FILE = "TestSuite/cloudblockfs_testsuite-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PREBINDING = NO;
+				PRODUCT_NAME = cloudblockfs_testsuite;
+			};
+			name = Debug;
+		};
+		35CB1750103DBE5600CE4C65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = (
+					"UnitTest++/src",
+					.,
+				);
+				INFOPLIST_FILE = "TestSuite/cloudblockfs_testsuite-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PREBINDING = NO;
+				PRODUCT_NAME = cloudblockfs_testsuite;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -241,6 +437,15 @@
 			buildConfigurations = (
 				1DEB928A08733DD80010E9CD /* Debug */,
 				1DEB928B08733DD80010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35CB1751103DBE5600CE4C65 /* Build configuration list for PBXNativeTarget "cloudblockfs_testsuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35CB174F103DBE5600CE4C65 /* Debug */,
+				35CB1750103DBE5600CE4C65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

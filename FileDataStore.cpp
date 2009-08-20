@@ -42,7 +42,7 @@ void FileDataStore::GetObject(const std::string& name,void *data,int size) const
 	int fd = open((m_path + "/" + name).c_str(),O_RDONLY);
 	if(fd < 0) {
 		switch(errno) {
-			case ENOENT: throw FileIOException(name + ": " + strerror(errno)); break;
+			case ENOENT: throw FileNotFoundException(name + ": " + strerror(errno)); break;
 			default: throw FileIOException(name + ": " + strerror(errno)); break;
 		}
 	} else {
@@ -53,8 +53,12 @@ void FileDataStore::GetObject(const std::string& name,void *data,int size) const
 
 void FileDataStore::DeleteObject(const std::string& name)
 {
-	if(unlink((m_path + "/" + name).c_str()) != 0)
-		throw FileIOException(name + ": " + strerror(errno));
+	if(unlink((m_path + "/" + name).c_str()) != 0) {
+		switch(errno) {
+			case ENOENT: throw FileNotFoundException(name + ": " + strerror(errno));
+			default: throw FileIOException(name + ": " + strerror(errno));
+		}
+	}
 }
 
 void FileDataStore::ListObjects(void (*list_function)(const std::string& name,void *userdata),void *userdata) const
