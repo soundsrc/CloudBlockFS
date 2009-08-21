@@ -133,4 +133,87 @@ SUITE(BlockStorageTests)
 			CHECK(false);
 		}
 	}
+	
+	TEST_FIXTURE(BlockStorageFixture,VariableDataReadWriteTest)
+	{
+		std::vector<char> expect, data, tmp;
+		
+		srandom(time(NULL));
+		FILE *fp = fopen("/dev/urandom","r");
+		if(fp) {
+			for(BlockStorageDeviceList::iterator it = m_block_devices.begin(); it != m_block_devices.end(); ++it)
+			{
+				BlockStorageDevicePtr block = *it;
+				
+				const int block_size = block->GetBlockSize();
+				const int tree_depth = block->GetTreeDepth();
+				const uint64_t max_block = powl((block_size >> 3),tree_depth) - 1;
+				expect.resize(block_size);
+				data.resize(block_size);
+				
+				// start with aligned block writes and read
+				for(int i = 0; i < 10; i++) {
+					for(int j = 0; j < 5; j++) {
+						fread(&expect[0],1,block_size,fp);
+						block->Write(&expect[0],block_size,i * block_size);
+						block->Read(&data[0],block_size,i * block_size);
+						CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+					}
+				}
+
+				// unaligned block read's and writes
+				for(int i = 0; i < 10; i++) {
+					for(int j = 0; j < 5; j++) {
+						fread(&expect[0],1,block_size,fp);
+						block->Write(&expect[0],block_size,i * block_size + (block_size >> 1));
+						block->Read(&data[0],block_size,i * block_size + (block_size >> 1));
+						CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+					}
+				}
+				
+				// partial small changes
+				block->Read(&expect[0],block_size,0);
+				for(int i = 0; i < block_size; i += 512) expect[i] = 0xCC;
+				for(int i = 0; i < block_size; i += 512) {
+					unsigned char cc = 0xCC;
+					block->Write(&cc,1,i);
+				}
+				block->Read(&data[0],block_size,0);
+				CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size);
+				
+				// large unaligned transfers
+				expect.resize(block_size * 4);
+				data.resize(block_size * 4);
+				
+				// load up random data
+				for(int i = 0; i < 10; i++) {
+					// write large block of random data
+					fread(&expect[0],1,block_size * 4,fp);
+					block->Write(&expect[0],block_size * 4,0);
+					
+					// choose random size and offset
+					
+					// random write size from (block_size,3 * block_size]
+					const long size = (random() % (3 * block_size)) + block_size + 1;
+					// random offset from (1,4 * block_size - size)
+					const long offset = (random() % (4 * block_size - size)) + 1;
+					
+					// load tmp data
+					tmp.resize(size);
+					fread(&tmp[0],1,size,fp);
+					memcpy(&expect[offset],&tmp[0],size);
+					
+					// write tmp to offset and size
+					block->Write(&tmp[0],size,offset);
+					
+					// compare entire large block
+					block->Read(&data[0],block_size * 4,0);
+					CHECK_ARRAY_EQUAL(&expect[0],&data[0],block_size * 4);
+				}
+			}
+			fclose(fp);
+		} else {
+			CHECK(false);
+		}
+	}
 }
