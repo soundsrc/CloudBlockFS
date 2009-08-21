@@ -79,6 +79,22 @@ void BlockStorageDevice::Truncate(int size)
 {
 	BlockMeta::Head head;
 	m_meta.GetHead(&head);
+	if(size < head.disk_size) {
+		const uint64_t erase_start_block = ((size + head.block_size - 1) / head.block_size);
+		const uint64_t erase_end_block = (head.disk_size / head.block_size);
+		for(uint64_t i = erase_start_block; i <= erase_end_block; i++) {
+			m_meta.SetBlockIDForBlockNo(i,0);
+			/*
+			BlockID block = m_meta.GetBlockIDForBlockNo(i);
+			if(block) {
+				char object[32];
+				sprintf(object,"%.16llX",block);
+				m_store->DeleteObject(object);
+				m_meta.SetBlockIDForBlockNo(i,0);
+			}*/
+		}
+	}
+	m_meta.GetHead(&head);
 	head.disk_size = size;
 	m_meta.PutHead(head);
 }
