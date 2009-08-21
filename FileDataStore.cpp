@@ -72,3 +72,7 @@ void FileDataStore::ListObjects(void (*list_function)(const std::string& name,vo
 	}
 	closedir(dirp);
 }
+
+void FileDataStore::Flush()
+{
+}

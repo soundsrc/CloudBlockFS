@@ -36,6 +36,7 @@ public:
 	virtual void GetObject(const std::string& name,void *data,int size) const { m_store.GetObject(name,data,size); }
 	virtual void DeleteObject(const std::string& name) { m_store.DeleteObject(name); }
 	virtual void ListObjects(void (*list_function)(const std::string& name,void *userdata),void *userdata) const { m_store.ListObjects(list_function,userdata); }
+	virtual void Flush() { m_store.Flush(); }
 };
 
 #endif

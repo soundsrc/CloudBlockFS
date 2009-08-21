@@ -106,9 +106,8 @@
 		08FB7794FE84155DC02AAC07 /* cloudblockfs */ = {
 			isa = PBXGroup;
 			children = (
+				359B8715103F05F900CAD8D6 /* CloudBlockFuse */,
 				35CB1747103DBE2B00CE4C65 /* TestSuite */,
-				351B6BD21039242C007BEB78 /* Header */,
-				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
@@ -145,6 +144,15 @@
 				35DEC4571039CD1800DA6FEB /* Exception.h */,
 			);
 			name = Header;
+			sourceTree = "<group>";
+		};
+		359B8715103F05F900CAD8D6 /* CloudBlockFuse */ = {
+			isa = PBXGroup;
+			children = (
+				351B6BD21039242C007BEB78 /* Header */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+			);
+			name = CloudBlockFuse;
 			sourceTree = "<group>";
 		};
 		35CB1747103DBE2B00CE4C65 /* TestSuite */ = {

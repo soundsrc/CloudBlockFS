@@ -38,6 +38,7 @@ namespace cloudblockfs
 		virtual void GetObject(const std::string& name,void *data,int size) const;
 		virtual void DeleteObject(const std::string& name);
 		virtual void ListObjects(void (*list_function)(const std::string& name,void *userdata),void *userdata) const;
+		virtual void Flush();
 	};
 }
 

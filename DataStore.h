@@ -64,6 +64,11 @@ namespace cloudblockfs
 		 * @param userdata User define data that is passed to list_function.
 		 */
 		virtual void ListObjects(void (*list_function)(const std::string& name,void *userdata),void *userdata) const = 0;
+		
+		/**
+		 * Flushes any buffers, ensure they are written to disk.
+		 */
+		virtual void Flush() = 0;
 	};
 }
 
