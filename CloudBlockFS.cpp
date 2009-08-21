@@ -178,6 +178,43 @@ int cloudblockfs_ftruncate(const char *path, off_t size, struct fuse_file_info *
 	return 0;
 }
 
+#if (__FreeBSD__ >= 10)
+int cloudblockfs_getxattr(const char *path, const char *name, char *value, size_t size, uint32_t position)
+{
+#else
+int cloudblockfs_getxattr(const char *path, const char *name, char *value, size_t size) {
+#endif 
+	if(strcmp(path, "/" CLOUDBLOCK_DEVICE_NAME) == 0) {
+		if(strcmp(name,"com.apple.FinderInfo") == 0) {
+			const int required = strlen("devrddsk") + 1;
+			if(!value) return required;
+			if(size < required) {
+				errno = ERANGE;
+				return -1;
+			}
+			memcpy(value,"devrddsk",required);
+			return required;
+		}
+	}
+	
+	return 0;
+}
+
+int cloudblockfs_listxattr(const char *path, char *namebuf, size_t size)
+{
+	if(strcmp(path, "/" CLOUDBLOCK_DEVICE_NAME) == 0) {
+		const int required = strlen("com.apple.FinderInfo") + 1; 
+		if(!namebuf) return required;
+		if(size < required) {
+			errno = ERANGE;
+			return -1;
+		}
+		memcpy(namebuf,"com.apple.FinderInfo",required);
+		return required;
+	}
+	return 0;
+}
+
 int main(int argc, char* argv[], char* envp[], char** exec_path) 
 {
 	umask(0);
@@ -206,6 +243,8 @@ int main(int argc, char* argv[], char* envp[], char** exec_path)
 	ops.access = cloudblockfs_access;
 	ops.create = cloudblockfs_create;
 	ops.ftruncate = cloudblockfs_ftruncate;
+	ops.getxattr = cloudblockfs_getxattr;
+	ops.listxattr = cloudblockfs_listxattr;
 	
 	return fuse_main(argc, argv, &ops, NULL);
 }
